@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="jumbotron custom-jumbotron"
+     style="max-width: 600px; width: 90%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <h1 class="display-4 text-center">Login</h1>
+  
+  <form id="loginForm" style="text-align: left;">
+    <!-- Username/Email -->
+    <div class="form-group" style="max-width: 80%; margin: 1rem auto;">
+      <label for="loginInput">Username or Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="loginInput"
+        name="loginInput"
+        placeholder="Enter username or email"
+        required>
+    </div>
+    
+    <!-- Password -->
+    <div class="form-group" style="max-width: 80%; margin: 1rem auto;">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="Enter password"
+        required>
+    </div>
+    
+    <!-- Button -->
+    <div class="form-group" style="max-width: 80%; margin: 1rem auto;">
+      <button type="submit" class="btn btn-login">Login</button>
+    </div>
+  </form>
+  
+  <p class="mt-3" style="max-width: 80%; margin: 0 auto; text-align: left;">
+    Don't have an account? 
+    <a href="{{ url_for('signup') }}" class="helper-link-signup">Sign up here.</a>
+  </p>
+</div>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const loginValue = document.getElementById("loginInput").value;
+    const password = document.getElementById("password").value;
+    
+    fetch("{{ url_for('login') }}", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ login: loginValue, password: password })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.token) {
+        document.cookie = "token=" + data.token + "; path=/";
+        window.location.href = "{{ url_for('dashboard') }}";
+      } else {
+        alert(data.message || "Login failed.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred during login.");
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}StudyMate{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+  <header class="d-flex justify-content-between align-items-center p-3">
+    <div class="logo">
+      <a href="/" class="text-decoration-none">
+        <i class="fas fa-book-open fa-2x"></i>
+      </a>
+    </div>
+
+    <div class="d-flex align-items-center mode-profile-container">
+      <!-- Light/Dark Mode Toggle Button -->
+      <button id="modeToggle" class="btn btn-link mode-toggle">
+        <i id="modeIcon" class="fas"></i>
+      </button>
+
+      <!-- Profile Picture with Dropdown Menu -->
+      {% if user %}
+        <div class="profile-container position-relative">
+          <button id="profilePic" class="profile-circle">
+            {{ user.username[0]|upper }}
+          </button>
+          
+          <div id="profileDropdown" class="profile-dropdown">
+            <a href="/logout" class="dropdown-item">Logout</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="container mt-5 pt-5">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const profilePic = document.getElementById("profilePic");
+      const profileDropdown = document.getElementById("profileDropdown");
+      const modeToggle = document.getElementById("modeToggle");
+      const modeIcon = document.getElementById("modeIcon");
+      const clickSound = new Audio("{{ url_for('static', filename='sounds/click.mp3') }}");
+
+      // Hide dropdown initially
+      if (profileDropdown) profileDropdown.style.display = "none";
+
+      // Toggle dropdown on profile picture click
+      if (profilePic && profileDropdown) {
+        profilePic.addEventListener("click", function(event) {
+          event.stopPropagation(); // Prevent event bubbling
+          profileDropdown.style.display = profileDropdown.style.display === "none" ? "block" : "none";
+        });
+      }
+
+      // Hide dropdown when clicking outside
+      document.addEventListener("click", function() {
+        if (profileDropdown && profileDropdown.style.display === "block") {
+          profileDropdown.style.display = "none";
+        }
+      });
+
+      // Function to apply dark mode styles
+      function applyDarkModeStyles() {
+        document.body.classList.add("dark-mode");
+        modeIcon.classList.remove("fa-moon");
+        modeIcon.classList.add("fa-sun");
+        profileDropdown.classList.add("dark-dropdown");
+      }
+
+      // Function to apply light mode styles
+      function applyLightModeStyles() {
+        document.body.classList.remove("dark-mode");
+        modeIcon.classList.remove("fa-sun");
+        modeIcon.classList.add("fa-moon");
+        profileDropdown.classList.remove("dark-dropdown");
+      }
+
+      // Function to toggle dark mode
+      function toggleDarkMode() {
+        if (document.body.classList.contains("dark-mode")) {
+          localStorage.setItem("darkMode", "false");
+          applyLightModeStyles();
+        } else {
+          localStorage.setItem("darkMode", "true");
+          applyDarkModeStyles();
+        }
+        clickSound.play();
+      }
+
+      // Load dark mode preference on page load
+      function loadDarkModePreference() {
+        if (localStorage.getItem("darkMode") === "true") {
+          applyDarkModeStyles();
+        } else {
+          applyLightModeStyles();
+        }
+      }
+
+      if (modeToggle && modeIcon) {
+        modeToggle.addEventListener("click", toggleDarkMode);
+        loadDarkModePreference();
+      }
+    });
+  </script>
+

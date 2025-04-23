@@ -1,0 +1,2297 @@
+/* Smooth Transition */
+body {
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    min-height: 100vh;
+}
+
+/* Light Mode: White → Blue */
+body {
+    background: linear-gradient(to bottom, #ffffff, #ffffff, #3A7BD5);
+    color: #121212;
+}
+
+/* Profile Picture */
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000; /* Black text */
+    background-color: #FFF5E1; /* Cream background */
+    text-transform: lowercase;
+    border: 1px solid #ddd;
+}
+
+/* Hide Profile Picture on Login/Signup Pages */
+.auth-page #profilePic {
+    display: flex !important;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: linear-gradient(to bottom, #121212, #121212, #3A7BD5);
+    color: #eee;
+}
+
+/* Dark mode form controls: darker background, lighter border/text */
+body.dark-mode .form-control {
+    background-color: #222 !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #999 !important;
+}
+
+body.dark-mode .mode-toggle {
+    color: white;
+}
+
+/* Header */
+header {
+    background: transparent;
+}
+
+/* Logo styling: Increase size and add margins */
+header .logo {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+header .logo a {
+    color: #3A7BD5 !important;
+    text-decoration: none;
+}
+
+header .logo i {
+    font-size: 3.5rem;
+}
+
+/* Mode Toggle Button */
+.mode-toggle {
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #121212;
+    border: none;
+    background: transparent;
+}
+
+.mode-toggle button {
+    width: 50px;
+    height: 50px;
+    border: none;              /* Remove border */
+    border-radius: 50%;        /* Make it circular */
+    background: #333;          /* Example background color (change as needed) */
+    color: #fff;               /* Icon/text color */
+    font-size: 1.8rem;         /* Icon size */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+  
+
+.mode-profile-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Add spacing between the elements */
+    margin-right: 20px;
+}
+
+/* Dark Mode: White Border & Icon */
+body.dark-mode .mode-toggle button {
+    color: white !important; /* White icon in dark mode */
+}
+
+/* Ensure the icon inside the button is properly centered */
+.mode-toggle i {
+    font-size: 1.8rem !important;
+}
+
+/* Remove underline effect on hover */
+
+/* Ensure button does not get underlined */
+.mode-toggle:hover, 
+.mode-toggle:focus, 
+.mode-toggle:active {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+/* Ensure Proper Alignment */
+.d-flex.align-items-center {
+    gap: 15px; /* Adds spacing between the toggle and profile picture */
+}
+
+/* Links in Dark Mode */
+body.dark-mode a {
+    color: #eee;
+}
+
+/* Jumbotron styling */
+.jumbotron.custom-jumbotron {
+    background-color: #ffffff;
+    color: 121212;
+    max-width: 800px;
+    width: 90%;
+    margin: -1rem auto 0 auto !important;
+    padding: 3rem 2rem;
+    line-height: 1.6;
+    border-radius: 12px;
+    border: 0.5px solid #3A7BD5;
+}
+
+body.dark-mode .jumbotron.custom-jumbotron {
+    background-color: #121212 !important;
+    color: #eee;
+    max-width: 800px;
+    width: 90%;
+    margin: -1rem auto 0 auto !important;
+    padding: 3rem 2rem;
+    line-height: 1.6;
+    border-radius: 12px;
+    border: 0.5px solid #3A7BD5;
+}
+
+/* Increase spacing between form elements */
+.form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Additional spacing for headings within jumbotron */
+.custom-jumbotron h1.display-4 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+.custom-jumbotron .lead {
+    margin-top: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+hr.my-4 {
+    border-top: 1px solid #ccc;
+}
+body.dark-mode hr.my-4 {
+    border-top: 1px solid #555;
+}
+
+/* Custom styles for the Sign Up button */
+.btn-signup {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-right: 1rem;
+}
+.btn-signup:hover {
+    background-color: #218838;
+}
+
+/* Custom styles for the Login button */
+.btn-login {
+    background-color: #555555;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+.btn-login:hover {
+    background-color: #444444;
+}
+
+/* Helper link styles */
+.helper-link-signup {
+    color: #28a745 !important;
+    font-weight: bold;
+}
+.helper-link-login {
+    color: #3A7BD5 !important;
+    font-weight: bold;
+}
+
+/* Flex container for centering content */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 1rem;
+}
+
+/* Adjust Welcome Text Position - Move Up */
+.dashboard-page h1 {
+    margin-top: 0.5rem; /* Moves text further up */
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.dashboard-page p.lead {
+    font-size: 1.2rem;
+    margin-bottom: 2rem; /* Reduce spacing below text */
+    margin-top: 0.5rem; /* Move closer to the title */
+}
+
+/* Dashboard Buttons */
+.dashboard-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #3A7BD5;
+    color: inherit; /* Use default text color */
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: none; /* No shadow by default */
+}
+
+/* Hover Effect - Make Button Pop Up */
+.dashboard-btn:hover {
+    transform: translateY(-5px); /* Moves the button up slightly */
+    text-decoration: none !important; /* Prevent underlining */
+    box-shadow: 0 12px 24px #3A7BD5; /* Shadow behind button */
+}
+
+/* Dark Mode - Adjust Hover Shadow */
+body.dark-mode .dashboard-btn:hover {
+    box-shadow: 0 12px 24px #3A7BD5; /* Stronger shadow in dark mode */
+}
+
+/* Prevent Underline and Text Color Change on Hover */
+.dashboard-btn:hover h3,
+.dashboard-btn:hover p,
+.dashboard-btn:hover i {
+    text-decoration: none !important;
+    color: inherit !important; /* Keep default text color */
+}
+
+/* Fix for Light Mode: Prevents text color from turning blue on hover */
+body:not(.dark-mode) .dashboard-btn:hover,
+body:not(.dark-mode) .dashboard-btn:hover h3,
+body:not(.dark-mode) .dashboard-btn:hover p,
+body:not(.dark-mode) .dashboard-btn:hover i {
+    color: inherit !important; /* Completely disables Bootstrap blue hover */
+}
+
+/* Override Bootstrap's default hover styles */
+.dashboard-btn:hover,
+.dashboard-btn:focus,
+.dashboard-btn:active {
+    color: inherit !important;
+}
+
+/* Icon and Text Styling */
+.dashboard-btn i {
+    font-size: 4rem;
+}
+
+.dashboard-btn h3 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.dashboard-btn p {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Additional Spacing Between Buttons */
+.row.justify-content-center {
+    gap: 30px; /* Adds space between buttons */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .dashboard-btn {
+        padding: 2rem;
+    }
+    .dashboard-btn i {
+        font-size: 3rem;
+    }
+    .dashboard-btn h3 {
+        font-size: 1.3rem;
+    }
+    .dashboard-btn p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Ensure the main container starts closer to the header */
+.container {
+    margin-top: -8rem; /* Moves content higher */
+}
+
+/* Scrollable column container */
+.scrollable-column {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    height: 85vh; /* Prevents columns from going below the gradient */
+    overflow-y: auto; /* Enable scrolling */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left column - Flashcard Categories */
+.col-md-4 .scrollable-column {
+    background-color: #ffffff; /* Light gray background */
+    border: 0.5px solid #3A7BD5;
+}
+
+/* Right column - Flashcards */
+.col-md-8 .scrollable-column {
+    background-color: #ffffff; /* Light blue background */
+    border: 0.5px solid #3A7BD5;
+}
+
+/* Ensure both columns match in dark mode */
+body.dark-mode .scrollable-column {
+    background-color: #121212 !important; /* Dark background */
+    color: white !important; /* White text */
+    border: 0.5px solid #3A7BD5;
+}
+
+/* Ensure left column matches dark mode */
+body.dark-mode .list-group-item {
+    background-color: #121212 !important; /* Slightly lighter dark background */
+    color: white !important;
+    border-color: #444 !important;
+}
+
+/* Placeholder text in dark mode */
+body.dark-mode .list-group-item.text-muted {
+    background-color: #121212 !important;
+    color: #bbb !important;
+}
+
+/* Hover effect for list items in dark mode */
+body.dark-mode .list-group-item:hover {
+    background-color: #121212 !important;
+}
+
+/* Fix the flashcard set placeholder box */
+body.dark-mode .list-group-item.text-muted {
+    background-color: #121212 !important;
+    color: #bbb !important;
+    border: 1px solid #444 !important;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+
+/* Flashcard Container */
+#flashcardContainer {
+    margin-top: 20px; /* Add space between header and first flashcard */
+}
+
+/* Flashcard Styling */
+.flashcard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flashcard {
+    position: relative;
+    background: #fff;
+    padding: 40px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    min-height: 120px;
+}
+
+.flashcard:hover {
+    transform: translateY(-2px);
+}
+
+/* Card Actions Container */
+.card-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 8px; /* Increased gap between buttons */
+}
+
+/* Action Buttons */
+.edit-btn,
+.delete-btn {
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    transform: scale(1.1);
+}
+
+.edit-btn i {
+    color: #3A7BD5;
+    font-size: 14px;
+}
+
+.delete-btn i {
+    color: #dc3545;
+    font-size: 14px;
+}
+
+/* Question styling */
+.flashcard h4 {
+    color: #3A7BD5;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* Answer styling */
+.flashcard p {
+    color: #333;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* Dark mode overrides */
+body.dark-mode .flashcard {
+    background: #222;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid #444; /* Darker border color */
+}
+
+body.dark-mode .flashcard h4 {
+    color: #5C9DFF;
+}
+
+body.dark-mode .flashcard p {
+    color: #ddd;
+}
+
+body.dark-mode .edit-btn i {
+    color: #5C9DFF;
+}
+
+body.dark-mode .delete-btn i {
+    color: #ff4d4d;
+}
+
+/* Ensure columns don't extend too far down */
+@media (max-width: 768px) {
+    .scrollable-column {
+        height: 55vh; /* Reduce height slightly for smaller screens */
+    }
+}
+
+/* Floating + button (Bottom Right) */
+.floating-add-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #121212; /* Default light mode: Dark gray */
+    color: #ffffff; /* Default light mode: White icon */
+    border: none;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease-in-out, color 0.3s ease;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Hover effect */
+.floating-add-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Dark Mode - Swap Colors */
+body.dark-mode .floating-add-btn {
+    background-color: #ffffff; /* White button */
+    color: #121212; /* Dark gray icon */
+}
+
+/* Tooltip effect (Show left of the button) */
+.floating-add-btn::after {
+    content: "Create New";
+    position: absolute;
+    right: 80px;
+    bottom: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.floating-add-btn:hover::after {
+    opacity: 1;
+}
+
+/* Modal Background */
+/* .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+} */
+
+/* Modal Content */
+/* .modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: left;
+    width: 450px; /* Larger modal 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+} */
+
+/* Close Button (X in Top Right) */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+/* Modal Title */
+/* .modal-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+} */
+
+/* Modal Description */
+/* .modal-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+} */
+
+/* Modal Input */
+/* .modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+} */
+
+/* Create Button (Bottom Right) */
+#createSetBtn {
+    background: #3A7BD5;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+#createSetBtn:hover {
+    background: #2E5B9B;
+}
+
+/* Dark Mode Support */
+/* body.dark-mode .modal-content {
+    background: #222 !important;
+    color: white !important;
+} */
+
+/* body.dark-mode .modal-content input {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+} */
+
+body.dark-mode #createSetBtn {
+    background: #3A7BD5;
+}
+
+body.dark-mode #createSetBtn:hover {
+    background: #2E5B9B;
+}
+
+body.dark-mode .close-btn {
+    color: #aaa;
+}
+
+body.dark-mode .close-btn:hover {
+    color: #fff;
+}
+
+/* Flashcard Sets List */
+.flashcard-sets-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.flashcard-set-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 16px;
+    min-height: 70px; /* slightly taller tile */
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+}
+
+.flashcard-set-item:hover {
+    background: #e0e0e0;
+}
+
+.flashcard-set-item.selected {
+    background: #e0e0e0;
+}
+
+/* Container that stacks the title and count vertically */
+.set-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+/* Title is on one line with ellipsis if too long */
+.set-name {
+    font-size: 0.9rem;         /* Slightly smaller font if desired */
+    white-space: nowrap;       /* Prevent wrapping */
+    overflow: hidden;          /* Hide overflow */
+    text-overflow: ellipsis;   /* Use "..." if text is too long */
+    max-width: 220px;          /* Limit width so ellipsis can appear */
+    margin-bottom: 4px;        /* Space above the flashcard count */
+}
+
+/* Flashcard count appears on its own line below title */
+.flashcard-count {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* Menu button should not shrink, so the text can have more room */
+.menu-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Hover Effect */
+.flashcard-set-item:hover {
+    background: #e0e0e0;
+}
+
+/* Dark Mode Styling */
+body.dark-mode .flashcard-set-item {
+    background: #333;
+    color: white;
+}
+
+body.dark-mode .flashcard-set-item:hover,
+body.dark-mode .flashcard-set-item.selected {
+    background: #444;
+}
+
+/* 3-Dot Menu Button */
+.menu-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.menu-btn:hover {
+    color: black;
+}
+
+/* Dark Mode 3-Dot Button */
+body.dark-mode .menu-btn {
+    color: #aaa;
+}
+
+body.dark-mode .menu-btn:hover {
+    color: white;
+}
+
+/* Hidden Action Menu */
+.action-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    overflow: hidden;
+    min-width: 120px;
+}
+
+/* Show Menu */
+.action-menu.show {
+    display: block;
+}
+
+/* Action Menu Buttons */
+.action-menu button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.action-menu button:hover {
+    background: #f1f1f1;
+}
+
+/* Dark Mode Action Menu */
+body.dark-mode .action-menu {
+    background: #222;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .action-menu button {
+    color: white;
+}
+
+body.dark-mode .action-menu button:hover {
+    background: #333;
+}
+
+/* Placeholder Message */
+.no-sets-msg {
+    text-align: center;
+    color: #777;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.text-muted {
+    text-align: center;
+    color: #777;
+    font-size: 1rem;
+    margin-top: 20px;   
+}
+
+/* Rename Modal Content */
+/* #renameModal .modal-content {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: left;
+    width: 550px;
+    min-height: 300px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+} */
+
+/* Input Field */
+/* #renameModal input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.2rem;
+} */
+
+/* Character Counter */
+/* #renameModal .character-counter {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: right;
+    margin-bottom: 25px;
+} */
+
+/* Rename Button */
+#renameSetBtn {
+    background: #3A7BD5;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    align-self: flex-end;
+}
+
+#renameSetBtn:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+#renameSetBtn:hover:not(:disabled) {
+    background: #2E5B9B;
+}
+
+/* Dark Mode */
+/* body.dark-mode #renameModal .modal-content {
+    background: #222 !important;
+    color: white !important;
+} */
+
+/* body.dark-mode #renameModal input {
+    background: #333;
+    color: white;
+    border: 2px solid #555;
+} */
+/* 
+body.dark-mode #renameModal .character-counter {
+    color: #aaa;
+} */
+
+/* Enhanced styling for the Create Flashcard button */
+#createFlashcard {
+    background-color: #28a745; /* Vibrant green */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#createFlashcard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.flashcard-count {
+    display: block;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 4px;
+}
+
+
+/* ===== UNIVERSAL MODAL STYLING ===== */
+
+/* Background overlay for all modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Main content area for all modals */
+.modal .modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Shared modal heading & description */
+.modal .modal-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.modal .modal-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Shared input/textarea spacing */
+.modal .modal-content input,
+.modal .modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Character counter, aligned left by default */
+.modal .character-counter {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: left;
+    margin-bottom: 25px; /* Spacing above the primary button */
+}
+
+/* Shared close (X) button, top right */
+.modal .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+.modal .close-btn:hover {
+    color: #000;
+}
+
+/* Single action button pinned bottom-right */
+.modal .action-btn {
+    background: #3A7BD5;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.modal .action-btn:hover {
+    background: #2E5B9B;
+}
+.modal .action-btn:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+/* For modals with multiple buttons at the bottom, like Delete */
+.modal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px; /* space above the buttons */
+    /* If you want them pinned at the bottom, you could do:
+       position: absolute; bottom: 20px; right: 20px;
+       but then you have to ensure they fit well. */
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+body.dark-mode .modal .modal-content {
+    background: #222 !important;
+    color: #fff !important;
+}
+body.dark-mode .modal .close-btn {
+    color: #aaa;
+}
+body.dark-mode .modal .close-btn:hover {
+    color: #fff;
+}
+body.dark-mode .modal .modal-content input,
+body.dark-mode .modal .modal-content textarea {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+body.dark-mode .modal .character-counter {
+    color: #aaa;
+}
+
+.flashcard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px; /* Reduce padding */
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem; /* Slightly smaller font */
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 8px;
+}
+
+.flashcard-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-grow: 1; /* Take up available space */
+    min-width: 0; /* Allow flex shrink */
+    overflow: hidden;
+}
+
+.flashcard-header-right {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap; /* Prevent overflow */
+}
+
+.flashcard-header-left .bullet {
+    margin: 0 8px;
+    color: #888;
+}
+
+/* Button Styles */
+.header-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Create Button (Green) */
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Ensure Header is Hidden Initially */
+.hidden {
+    display: none;
+}
+
+
+/* Ensure Header is Hidden Initially */
+.flashcard-header {
+    display: none; /* Hide by default */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Show Header When a Set is Selected */
+.flashcard-header.visible {
+    display: flex; /* Show when a set is selected */
+    opacity: 1;
+    transform: translateY(0);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa; /* Light mode background */
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
+}
+
+/* Ensure header matches dark mode column */
+body.dark-mode .flashcard-header {
+    background-color: #121212 !important; /* Match dark mode column */
+    color: #eee !important;
+    border-bottom: 1px solid #444 !important; /* Darker border */
+}
+
+/* Adjust text color for dark mode */
+body.dark-mode .flashcard-header-left .bullet {
+    color: #888 !important; /* Lighter bullet separator */
+}
+
+/* Dark Mode Button Adjustments */
+body.dark-mode .header-btn {
+    color: white !important;
+    background: #222 !important;
+    border: 1px solid #444 !important;
+}
+
+body.dark-mode .header-btn:hover {
+    background: #333 !important;
+}
+
+/* Dark Mode for Button Variants */
+body.dark-mode .btn-success {
+    background-color: #2E7D32 !important;
+}
+body.dark-mode .btn-secondary {
+    background-color: #555 !important;
+}
+body.dark-mode .btn-primary {
+    background-color: #1565C0 !important;
+}
+
+/* Truncate long names */
+#setNameHeader {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px; /* Limit width for longer titles */
+    font-size: 1rem;
+}
+
+/* Reduce the size of the flashcard count */
+#flashcardCountHeader {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.modal-left {
+    width: 60%;
+}
+
+.modal-right {
+    width: 35%;
+    background: #f8f9fa;
+    border-left: 2px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+}
+
+.modal-right h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.modal-right ul {
+    list-style-type: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.modal-right li {
+    background: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-right .action-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Ensure the modal does not change size when switching tabs */
+.large-flashcard-modal {
+    width: 85% !important;
+    max-width: 700px !important;
+    height: 675px !important; /* Set a fixed height */
+    background: white !important;
+    padding: 40px !important;
+    border-radius: 12px !important;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3) !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 10% !important;
+    transform: translate(0, -50%) !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+/* Ensure tab content does not change modal size */
+.flashcard-tab-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    height: 100% !important;
+}
+
+/* Hide inactive tab content, but keep the same height */
+.flashcard-tab-content.hidden {
+    display: none !important;
+}
+
+/* Move the flashcard tab container (Manual & AI buttons) to bottom-left */
+.modal-footer {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+    justify-content: space-between;
+}
+
+/* Style the tab buttons */
+.tab-btn {
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+    background: #f0f0f0 !important;
+    color: #666 !important;
+    border: 1px solid #ddd !important;
+}
+
+/* Active state for all tab buttons */
+.tab-btn.active {
+    background: #007bff !important;
+    color: white !important;
+    border-color: #007bff !important;
+}
+
+/* Hover states for all tab buttons */
+.tab-btn:not(.active):hover {
+    background: #e0e0e0 !important;
+    color: #333 !important;
+}
+
+.tab-btn.active:hover {
+    background: #0056b3 !important;
+}
+
+/* Dark mode support for all tab buttons */
+body.dark-mode .tab-btn:not(.active) {
+    background: #333 !important;
+    color: #aaa !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .tab-btn.active {
+    background: #007bff !important;
+    color: white !important;
+    border-color: #007bff !important;
+}
+
+body.dark-mode .tab-btn:not(.active):hover {
+    background: #444 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .tab-btn.active:hover {
+    background: #0056b3 !important;
+}
+
+/* Make sure 'Add Flashcard' button aligns with tabs */
+#addFlashcardBtn {
+    padding: 8px 14px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    cursor: pointer !important;
+    background: #28a745 !important;
+    color: white !important;
+    transition: background 0.2s ease-in-out !important;
+    margin-left: auto !important;
+}
+
+#addFlashcardBtn:hover {
+    background: #218838 !important;
+}
+/* AI Menu Toggle Buttons */
+.ai-options {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+/* AI Text Input Container */
+.ai-text-input-container {
+    margin-top: 15px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* AI Text Box */
+#aiTextBox {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    font-size: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    resize: none;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    transition: border-color 0.3s ease;
+}
+
+#aiTextBox:focus {
+    border-color: #3A7BD5;
+    outline: none;
+}
+
+/* Flashcard Count Input */
+.ai-text-count-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ai-text-count-container label {
+    font-size: 14px;
+    color: #666;
+}
+
+#flashcardCount {
+    width: 100%;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#flashcardCount:focus {
+    border-color: #3A7BD5;
+}
+
+/* File Upload Menu */
+.file-upload-menu {
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.file-upload-menu:hover {
+    border-color: #3A7BD5;
+}
+
+/* Left Side: Upload Button */
+.file-upload-left {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+    border-right: 2px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-left:hover {
+    background: #f0f0f0;
+}
+
+.file-upload-box {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.file-upload-box i {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #3A7BD5;
+}
+
+/* Right Side: File List */
+.file-upload-right {
+    width: 50%;
+    padding: 15px;
+    overflow-y: auto;
+    background: white;
+}
+
+.file-placeholder {
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.uploaded-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.remove-file-btn:hover {
+    color: #cc0000;
+}
+
+/* Dark Mode Support */
+body.dark-mode #aiTextBox,
+body.dark-mode #flashcardCount {
+    background: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .file-upload-menu {
+    border-color: #444;
+}
+
+body.dark-mode .file-upload-left {
+    background: #333;
+    border-color: #444;
+}
+
+body.dark-mode .file-upload-left:hover {
+    background: #444;
+}
+
+body.dark-mode .file-upload-box {
+    color: #aaa;
+}
+
+body.dark-mode .file-upload-right {
+    background: #333;
+}
+
+body.dark-mode .uploaded-file {
+    background: #444;
+}
+
+body.dark-mode .file-placeholder {
+    color: #666;
+}
+
+.flashcard-form {
+    margin-top: 15px;
+}
+
+.pending-navbar {
+    width: 30% !important;
+    max-width: 450px !important;
+    height: 675px !important;
+    background: transparent !important;
+    padding: 40px !important;
+    position: fixed !important;
+    top: 50% !important;
+    right: 10% !important;
+    transform: translate(0, -50%) !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    z-index: 9999;
+}
+
+/* pending List Styling */
+#pendingList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 0;
+}
+
+#pendingList li.flashcard {
+    position: relative;
+    background: #fff;
+    padding: 40px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    min-height: 120px;
+}
+
+/* Remove hover transform effect */
+#pendingList li.flashcard:hover {
+    transform: none;
+}
+
+/* Question styling in pending */
+#pendingList li.flashcard h4 {
+    color: #3A7BD5;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 32px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* Answer styling in pending */
+#pendingList li.flashcard p {
+    color: #333;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* Remove pending Button */
+.remove-pending-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 12px;
+    z-index: 1;
+}
+
+.remove-pending-btn i,
+.remove-pending-btn span {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    background: transparent !important;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-pending-btn i {
+    color: #666;
+}
+
+.remove-pending-btn span {
+    color: #dc3545;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.remove-pending-btn i:hover {
+    background: rgba(102, 102, 102, 0.1) !important;
+    color: #444;
+}
+
+.remove-pending-btn span:hover {
+    background: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Dark Mode Support */
+body.dark-mode #pendingList li.flashcard {
+    background: #222;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 1px solid #444; /* Darker border color */
+}
+
+body.dark-mode #pendingList li.flashcard h4 {
+    color: #5C9DFF;
+}
+
+body.dark-mode #pendingList li.flashcard p {
+    color: #ddd;
+}
+
+body.dark-mode .remove-pending-btn i {
+    color: #888;
+}
+
+body.dark-mode .remove-pending-btn i:hover {
+    background: rgba(136, 136, 136, 0.1);
+    color: #aaa;
+}
+
+body.dark-mode .remove-pending-btn span {
+    color: #ff6b6b;
+}
+
+body.dark-mode .remove-pending-btn span:hover {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+/* Card Actions Container */
+#pendingList .card-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    z-index: 1;
+}
+
+/* Edit Button */
+.edit-pending-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    background: transparent !important;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    margin-right: 4px; /* Added margin to the right */
+}
+
+.edit-pending-btn:hover {
+    background: rgba(102, 102, 102, 0.1) !important;
+    color: #444;
+}
+
+/* Remove Button */
+.remove-pending-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    background: transparent !important;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc3545;
+    margin-left: 4px; /* Added margin to the left */
+}
+
+.remove-pending-btn span {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.remove-pending-btn:hover {
+    background: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Dark Mode Support */
+body.dark-mode .edit-pending-btn {
+    color: #888;
+}
+
+body.dark-mode .edit-pending-btn:hover {
+    background: rgba(136, 136, 136, 0.1);
+    color: #aaa;
+}
+
+body.dark-mode .remove-pending-btn {
+    color: #ff6b6b;
+}
+
+body.dark-mode .remove-pending-btn:hover {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+/* Edit Flashcard Modal Textboxes */
+#editFlashcardQuestion {
+    height: 80px !important;
+    min-height: 80px !important;
+    resize: none;
+    margin-bottom: 20px !important;  /* Add more space between question and answer */
+}
+
+#editFlashcardAnswer {
+    height: 120px !important;
+    min-height: 120px !important;
+    resize: none;
+}
+
+/* Edit Flashcard Modal specific styles */
+#editFlashcardModal .modal-content {
+    width: 500px;
+    padding: 20px;
+}
+
+#editFlashcardModal .modal-header {
+    margin-bottom: 15px;
+}
+
+#editFlashcardModal .flashcard-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;  /* Add space between form and button */
+}
+
+#editFlashcardModal label {
+    margin-bottom: 5px;
+}
+
+#editFlashcardModal #updateFlashcardBtn {
+    align-self: flex-end;  /* Align button to the right */
+    margin-top: 10px;  /* Additional space above button */
+}
+
+.study-modal {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.study-modal-content {
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 600px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.study-navigation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 20px;
+    transition: color 0.3s ease;
+}
+
+.nav-btn:hover {
+    color: #333;
+}
+
+.flashcard-study-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.flashcard-study {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-content h3 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-content p {
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 280px;
+    padding: 10px;
+}
+
+.answer-side {
+    transform: rotateX(180deg);
+}
+
+.flashcard-study.flipped .question-side {
+    transform: rotateX(180deg);
+}
+
+.flashcard-study.flipped .answer-side {
+    transform: rotateX(0);
+}
+
+.study-progress {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Dark mode styles */
+body.dark-mode .study-modal-content {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .card-content {
+    background-color: #363636;
+    color: #fff;
+}
+
+body.dark-mode .card-content h3 {
+    color: #999;
+}
+
+body.dark-mode .nav-btn {
+    color: #999;
+}
+
+body.dark-mode .nav-btn:hover {
+    color: #fff;
+}
+
+body.dark-mode .study-progress {
+    color: #999;
+}
+
+/* Add slide animations */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.flashcard-study.sliding-left {
+    animation: slideOutLeft 0.3s forwards;
+}
+
+.flashcard-study.sliding-right {
+    animation: slideOutRight 0.3s forwards;
+}
+
+.flashcard-study.sliding-in-left {
+    animation: slideInLeft 0.3s forwards;
+}
+
+.flashcard-study.sliding-in-right {
+    animation: slideInRight 0.3s forwards;
+}
+
+/* Study Guides List */
+.study-guides-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.study-guide-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 16px;
+    min-height: 70px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+}
+
+.study-guide-item:hover {
+    background: #e0e0e0;
+}
+
+.study-guide-item.selected {
+    background: #e0e0e0;
+}
+
+/* Container that stacks the title and status vertically */
+.guide-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+/* Title is on one line with ellipsis if too long */
+.guide-name {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    margin-bottom: 4px;
+}
+
+/* Guide status appears on its own line below title */
+.guide-status {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* Guide Header */
+.guide-header {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.guide-header.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.guide-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.guide-header-right {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* PDF Viewer Container */
+.pdf-viewer {
+    margin-top: 20px;
+    width: 100%;
+    height: calc(100vh - 200px);
+    min-height: 600px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pdf-viewer embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Dark Mode Support */
+body.dark-mode .study-guide-item {
+    background: #333;
+    color: white;
+}
+
+body.dark-mode .study-guide-item:hover,
+body.dark-mode .study-guide-item.selected {
+    background: #444;
+}
+
+body.dark-mode .guide-status {
+    color: #aaa;
+}
+
+body.dark-mode .guide-header {
+    background-color: #121212;
+    color: #eee;
+    border-bottom: 1px solid #444;
+}
+
+body.dark-mode .pdf-viewer {
+    border-color: #444;
+}
+
+.study-guide-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    margin-top: 30px;  /* Add space above the form */
+}
+
+.study-guide-form label {
+    font-size: 16px;
+    margin-bottom: 8px;  /* Add space below the label */
+}
+
+.study-guide-form textarea {
+    height: 200px;
+    min-height: 200px;
+    resize: none;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+body.dark-mode .study-guide-form textarea {
+    background-color: #2c2c2c;
+    color: #fff;
+    border-color: #444;
+}
+
+.modal-body {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.modal-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.modal-right {
+    flex: 1;
+    min-width: 300px;
+    border-left: 1px solid #ddd;
+    padding-left: 20px;
+}
+
+.study-guide-preview {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    height: 400px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.preview-placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    margin-top: 180px;
+}
+
+body.dark-mode .study-guide-preview {
+    background: #2d2d2d;
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .preview-placeholder {
+    color: #666;
+}
+
+body.dark-mode .modal-right {
+    border-left-color: #444;
+}
+
+/* Profile container */
+.profile-container {
+    position: relative;
+}
+
+/* Profile picture button */
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* Default dropdown styles (light mode) */
+.profile-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: none;
+    min-width: 120px;
+    z-index: 1000;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.profile-dropdown a:hover {
+    background: #f8f9fa;
+}
+
+/* Dark mode dropdown */
+.dark-dropdown {
+    background: #333 !important;
+    border-color: #444 !important;
+}
+
+.dark-dropdown a {
+    color: white !important;
+}
+
+.dark-dropdown a:hover {
+    background: #555 !important;
+}
+
+#deleteButton {
+    background-color: #dc3545 !important; /* Force red */
+    border-color: #dc3545 !important;
+    color: white !important;
+}
+
+#deleteButton:hover {
+    background-color: #b52b39 !important; /* Darker red on hover */
+    border-color: #b52b39 !important;
+}

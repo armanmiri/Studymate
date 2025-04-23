@@ -1,0 +1,15 @@
+Flask==3.1.0
+flask_sqlalchemy==3.1.1
+pandas==2.2.3
+Pillow==9.4.0
+Pillow==11.1.0
+protobuf==6.30.0
+PyJWT==2.4.0
+PyJWT==2.10.1
+PyPDF2==3.0.1
+pytesseract==0.3.13
+python_docx==1.1.2
+python_pptx==0.6.18
+reportlab==4.3.1
+textract==1.6.3
+Werkzeug==3.1.3

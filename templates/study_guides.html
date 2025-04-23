@@ -1,0 +1,906 @@
+{% extends 'layout.html' %}
+
+{% block title %}Study Guides - StudyMate{% endblock %}
+
+{% block body_class %}study-guides-page{% endblock %} 
+
+{% block content %}
+<div class="container">
+    <!-- Floating + Button for creating study guides -->
+    <button id="addStudyGuide" class="floating-add-btn" title="Create a new study guide">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <div class="row">
+        <!-- Left Column: Study Guide Sets -->
+        <div class="col-md-4">
+            <div class="scrollable-column">
+                <ul class="study-guides-list" id="studyGuidesList">
+                    {% if study_guides %}
+                        {% for guide in study_guides %}
+                            <li class="study-guide-item" data-guide-id="{{ guide.id }}">
+                                <div class="guide-info" onclick="openGuide('{{ guide.id }}')">
+                                    <span class="guide-name">{{ guide.name }}</span>
+                                    <small class="guide-status">{% if guide.content %}PDF Available{% else %}No PDF{% endif %}</small>
+                                </div>
+                                <button class="menu-btn" onclick="toggleMenu(event, '{{ guide.id }}')">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <!-- Hidden Action Menu -->
+                                <div class="action-menu" id="menu-{{ guide.id }}">
+                                    <button onclick="openRenameModal('{{ guide.id }}', '{{ guide.name }}')">Rename</button>
+                                    <button onclick="openGuide('{{ guide.id }}')">Open</button>
+                                    <button onclick="openDeleteModal('{{ guide.id }}')">Delete</button>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-muted">No study guides available. Create one!</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Study Guide Content -->
+        <div class="col-md-8">
+            <div class="scrollable-column">
+                <!-- Right Column Header -->
+                <div id="studyGuideHeader" class="guide-header hidden">
+                    <div id="guideHeaderLeft" class="guide-header-left">
+                        <span id="guideNameHeader">Guide Name</span>
+                        <span class="bullet">&#9679;</span>
+                        <span id="guideStatusHeader">Null</span>
+                    </div>
+                    <div id="guideHeaderRight" class="guide-header-right">
+                        <button id="createButton" class="btn btn-success header-btn">Create PDF</button>
+                        <button id="deleteButton" class="btn btn-danger header-btn">Delete PDF</button>
+                    </div>
+                </div>
+                
+                <!-- Study Guide Container (for displaying PDF or placeholder) -->
+                <div id="studyGuideContainer">
+                    <p class="text-center text-muted">Select a study guide to view its content.</p>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Study Guide Modal -->
+<div id="studyGuideModal" class="modal">
+    <div class="modal-content">
+        <button id="closeModalBtn" class="close-btn">&times;</button>
+        <h2 class="modal-title">Create a New Study Guide</h2>
+        <p class="modal-description">Enter a name for your new study guide below.</p>
+        
+        <input type="text" id="studyGuideName" placeholder="Enter guide name..." maxlength="30" required>
+        <p class="character-counter" id="charCount">0 / 30</p>
+        
+        <!-- Primary Action Button (bottom-right) -->
+        <button id="createGuideBtn" class="action-btn" disabled>Create</button>
+    </div>
+</div>
+
+<!-- Rename Study Guide Modal -->
+<div id="renameModal" class="modal">
+    <div class="modal-content">
+        <button id="closeRenameModalBtn" class="close-btn">&times;</button>
+        <h2 class="modal-title">Rename Study Guide</h2>
+        <p class="modal-description">Enter a new name for your study guide.</p>
+        
+        <input type="text" id="renameStudyGuideName" placeholder="Enter new guide name..." maxlength="30" required>
+        <p class="character-counter" id="renameCharCount">0 / 30</p>
+        
+        <!-- Primary Action Button (bottom-right) -->
+        <button id="renameGuideBtn" class="action-btn" disabled>Rename</button>
+    </div>
+</div>
+
+<!-- Delete Study Guide Modal -->
+<div id="deleteGuideModal" class="modal">
+    <div class="modal-content">
+        <button id="closeDeleteModalBtn" class="close-btn">&times;</button>
+        <h2 class="modal-title">Delete Study Guide</h2>
+        <p class="modal-description">Are you sure you want to delete this study guide? This action cannot be undone.</p>
+        
+        <!-- Two Buttons (side by side at the bottom) -->
+        <div class="modal-actions">
+            <button id="cancelDeleteGuideBtn" class="btn btn-secondary">Cancel</button>
+            <button id="confirmDeleteGuideBtn" class="btn btn-danger" onclick="window.deleteStudyGuide()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Large Study Guide Create Modal -->
+<div id="largeStudyGuideCreateModal" class="modal">
+    <div class="modal-content large-flashcard-modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Create Study Guide Content</h2>
+            <button id="closeLargeStudyGuideCreateModalBtn" class="close-btn">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="modal-left">
+                <div class="modal-tab-content" id="manualTab">
+                    <div class="study-guide-form">
+                        <label for="studyGuideContent">Content</label>
+                        <textarea id="studyGuideContent" placeholder="Enter your content..." rows="10" required style="resize: none; overflow-y: auto;"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-tab-content hidden" id="aiTab">
+                    <div class="ai-options">
+                        <button id="aiTextInputBtn" class="tab-btn active">Text Input</button>
+                        <button id="aiFileUploadBtn" class="tab-btn">File Upload</button>
+                    </div>
+                
+                    <!-- AI Text Input Box -->
+                    <div class="ai-text-input-container" id="aiTextInputMenu">
+                        <textarea id="aiTextBox" placeholder="Input content here..." required></textarea>
+                    </div>
+                
+                    <!-- AI File Upload Menu -->
+                    <div id="fileUploadMenu" class="file-upload-menu hidden">
+                        <div class="file-upload-left">
+                            <input type="file" id="fileInput" multiple accept=".txt,.md,.py,.js,.html,.css,.json,.csv,.log,.xml,.yaml,.yml,.pdf,.doc,.docx,.xlsx,.xls,.pptx,.png,.jpg,.jpeg,.gif,.bmp,.webp" hidden>
+                            <label for="fileInput" class="file-upload-box">
+                                <i class="fas fa-upload"></i>
+                                <span>Click to upload files</span>
+                            </label>
+                        </div>
+                        <div class="file-upload-right" id="fileListContainer">
+                            <p class="file-placeholder">No files uploaded.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-right">
+                <h3>Preview</h3>
+                <div id="studyGuidePreview" class="study-guide-preview">
+                    <p class="preview-placeholder">Your content will appear here as you type...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="modal-tab-container">
+                <button class="tab-btn active" data-tab="manual">Manual</button>
+                <button class="tab-btn" data-tab="ai">AI</button>
+            </div>
+            <button id="confirmStudyGuideBtn" class="btn btn-success">Create</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Global variables
+        window.currentGuideId = null;
+        window.currentRenameGuideId = null;
+        window.currentDeleteGuideId = null;
+        window.uploadedFiles = [];
+
+        // DOM Elements
+        window.studyGuideElements = {
+            // Modal Elements
+            modal: document.getElementById("studyGuideModal"),
+            closeModalBtn: document.getElementById("closeModalBtn"),
+            createGuideBtn: document.getElementById("createGuideBtn"),
+            studyGuideName: document.getElementById("studyGuideName"),
+            charCount: document.getElementById("charCount"),
+
+            // Rename Modal Elements
+            renameModal: document.getElementById("renameModal"),
+            closeRenameModalBtn: document.getElementById("closeRenameModalBtn"),
+            renameGuideBtn: document.getElementById("renameGuideBtn"),
+            renameStudyGuideName: document.getElementById("renameStudyGuideName"),
+            renameCharCount: document.getElementById("renameCharCount"),
+
+            // Delete Modal Elements
+            deleteGuideModal: document.getElementById("deleteGuideModal"),
+            closeDeleteModalBtn: document.getElementById("closeDeleteModalBtn"),
+            cancelDeleteGuideBtn: document.getElementById("cancelDeleteGuideBtn"),
+            confirmDeleteGuideBtn: document.getElementById("confirmDeleteGuideBtn"),
+
+            // Large Create Modal Elements
+            largeStudyGuideCreateModal: document.getElementById("largeStudyGuideCreateModal"),
+            closeLargeStudyGuideCreateModalBtn: document.getElementById("closeLargeStudyGuideCreateModalBtn"),
+            studyGuideContent: document.getElementById("studyGuideContent"),
+            confirmStudyGuideBtn: document.getElementById("confirmStudyGuideBtn"),
+            
+            // AI Elements
+            aiTextInputMenu: document.getElementById("aiTextInputMenu"),
+            fileUploadMenu: document.getElementById("fileUploadMenu"),
+            aiTextInputBtn: document.getElementById("aiTextInputBtn"),
+            aiFileUploadBtn: document.getElementById("aiFileUploadBtn"),
+            fileInput: document.getElementById("fileInput"),
+            fileListContainer: document.getElementById("fileListContainer"),
+        };
+
+        // Define modal close functions
+        window.closeModal = function(modalElement) {
+            if (modalElement) {
+                modalElement.style.display = "none";
+            }
+        };
+
+        window.closeCreateModal = function() {
+            const elements = window.studyGuideElements;
+            const input = elements.studyGuideName;
+            input.value = '';
+            elements.charCount.textContent = '0 / 30';
+            window.closeModal(elements.modal);
+        };
+
+        window.closeRenameModal = function() {
+            const elements = window.studyGuideElements;
+            const input = elements.renameStudyGuideName;
+            input.value = '';
+            elements.renameCharCount.textContent = '0 / 30';
+            window.closeModal(elements.renameModal);
+        };
+
+        window.closeDeleteModal = function() {
+            window.closeModal(window.studyGuideElements.deleteGuideModal);
+        };
+
+        // Open Guide Function
+        window.openGuide = function(guideId, event) {
+            console.log("Opening guide:", guideId);
+            if (event && event.target.closest('.menu-btn')) return;
+
+            // Remove selected class from all guides
+            document.querySelectorAll('.study-guide-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // Add selected class to clicked guide
+            const selectedGuide = document.querySelector(`[data-guide-id='${guideId}']`);
+            if (selectedGuide) {
+                selectedGuide.classList.add('selected');
+            }
+
+            window.currentGuideId = guideId;
+            const guideElement = document.querySelector(`[data-guide-id='${guideId}'] .guide-name`);
+            const guideName = guideElement ? guideElement.textContent : "Unnamed Guide";
+
+            const header = document.getElementById("studyGuideHeader");
+            header.classList.remove("hidden");
+            header.classList.add("visible");
+            document.getElementById("guideNameHeader").textContent = guideName;
+
+            // Fetch and display the guide content (PDF or placeholder)
+            fetch(`/study-guides/${guideId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("guideStatusHeader").textContent = 
+                        data.study_guide.content ? "PDF Available" : "No PDF";
+                    const container = document.getElementById("studyGuideContainer");
+                    
+                    if (data.study_guide.content) {
+                        // Display PDF viewer
+                        container.innerHTML = `
+                            <div class="pdf-viewer">
+                                <embed src="/study-guides/${guideId}/pdf" type="application/pdf" width="100%" height="600px">
+                            </div>`;
+                    } else {
+                        container.innerHTML = `
+                            <p class="text-center text-muted">No PDF available for this study guide. Click Create PDF to generate one.</p>`;
+                    }
+                })
+                .catch(error => console.error("Error fetching study guide:", error));
+        };
+
+        // Menu Toggle Function
+        window.toggleMenu = function(event, guideId) {
+            console.log("Toggling menu for guide:", guideId);
+            event.stopPropagation();
+            document.querySelectorAll(".action-menu.show").forEach(menu => {
+                if (menu.id !== `menu-${guideId}`) {
+                    menu.classList.remove("show");
+                }
+            });
+            const menu = document.getElementById(`menu-${guideId}`);
+            if (menu) {
+                menu.classList.toggle("show");
+            }
+        };
+
+        // Close action menus when clicking outside
+        document.addEventListener("click", function(event) {
+            if (!event.target.closest('.menu-btn') && !event.target.closest('.action-menu')) {
+                document.querySelectorAll(".action-menu.show").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+            }
+        });
+
+        // Event Listeners
+        document.getElementById("addStudyGuide").addEventListener("click", () => {
+            window.studyGuideElements.modal.style.display = "flex";
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener("click", function(event) {
+            if (event.target.classList.contains("modal")) {
+                if (event.target === window.studyGuideElements.modal) {
+                    closeCreateModal();
+                } else if (event.target === window.studyGuideElements.renameModal) {
+                    closeRenameModal();
+                } else if (event.target === window.studyGuideElements.deleteGuideModal) {
+                    closeDeleteModal();
+                }
+            }
+        });
+
+        // Close modals on Escape key
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                if (window.studyGuideElements.modal.style.display === "flex") {
+                    closeCreateModal();
+                }
+                if (window.studyGuideElements.renameModal.style.display === "flex") {
+                    closeRenameModal();
+                }
+                if (window.studyGuideElements.deleteGuideModal.style.display === "flex") {
+                    closeDeleteModal();
+                }
+            }
+        });
+
+        // Character counter for create modal
+        window.studyGuideElements.studyGuideName.addEventListener("input", function() {
+            const length = this.value.length;
+            window.studyGuideElements.charCount.textContent = `${length} / 30`;
+            window.studyGuideElements.createGuideBtn.disabled = this.value.trim().length === 0;
+        });
+
+        // Character counter for rename modal
+        window.studyGuideElements.renameStudyGuideName.addEventListener("input", function() {
+            const length = this.value.length;
+            window.studyGuideElements.renameCharCount.textContent = `${length} / 30`;
+            window.studyGuideElements.renameGuideBtn.disabled = this.value.trim().length === 0;
+        });
+
+        // Create Study Guide Function
+        function createStudyGuide() {
+            const guideName = window.studyGuideElements.studyGuideName.value.trim();
+            if (guideName.length > 0) {
+                fetch("/study-guides", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        title: guideName,
+                        content: "" // Initially empty content
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === "Study guide created!") {
+                        location.reload(); // Refresh to show new guide
+                    } else {
+                        throw new Error(data.message || "Failed to create study guide");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error creating study guide:", error);
+                    alert("Failed to create study guide: " + error.message);
+                });
+            }
+        }
+
+        // Event Listeners
+        window.studyGuideElements.createGuideBtn.addEventListener("click", createStudyGuide);
+        window.studyGuideElements.studyGuideName.addEventListener("keydown", event => {
+            if (event.key === "Enter") createStudyGuide();
+        });
+
+        // Event Listeners for Close Buttons
+        window.studyGuideElements.closeModalBtn.addEventListener("click", closeCreateModal);
+        window.studyGuideElements.closeRenameModalBtn.addEventListener("click", closeRenameModal);
+        window.studyGuideElements.closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
+        window.studyGuideElements.cancelDeleteGuideBtn.addEventListener("click", closeDeleteModal);
+
+        // Close large create modal function
+        window.closeLargeCreateModal = function() {
+            const elements = window.studyGuideElements;
+            elements.studyGuideContent.value = '';
+            window.closeModal(elements.largeStudyGuideCreateModal);
+        };
+
+        // Create button click handler in the right column
+        document.getElementById("createButton").addEventListener("click", function() {
+            if (window.currentGuideId) {
+                const elements = window.studyGuideElements;
+                
+                // Check if PDF already exists
+                const statusHeader = document.getElementById("guideStatusHeader");
+                if (statusHeader.textContent === "PDF Available") {
+                    alert("This study guide already has a PDF. Delete the existing PDF first if you want to create a new one.");
+                    return;
+                }
+                
+                // Reset the form
+                elements.studyGuideContent.value = "";
+                
+                // Reset AI elements
+                if (elements.aiTextBox) {
+                    elements.aiTextBox.value = "";
+                }
+                
+                // Reset the tabs to manual mode
+                document.getElementById("manualTab").classList.remove("hidden");
+                document.getElementById("aiTab").classList.add("hidden");
+                document.querySelectorAll(".modal-footer .tab-btn").forEach(btn => {
+                    btn.classList.toggle("active", btn.getAttribute("data-tab") === "manual");
+                });
+                
+                // Show the modal
+                elements.largeStudyGuideCreateModal.style.display = "flex";
+                elements.studyGuideContent.focus();
+            } else {
+                alert("Please select a study guide first.");
+            }
+        });
+
+        // Delete PDF button click handler
+        document.getElementById("deleteButton").addEventListener("click", function() {
+            if (window.currentGuideId) {
+                const statusHeader = document.getElementById("guideStatusHeader");
+                if (statusHeader.textContent !== "PDF Available") {
+                    alert("No PDF exists for this study guide.");
+                    return;
+                }
+
+                if (confirm("Are you sure you want to delete this PDF? This action cannot be undone.")) {
+                    fetch(`/study-guides/${window.currentGuideId}/pdf`, {
+                        method: "DELETE"
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === "PDF deleted!") {
+                            // Update the status in both columns
+                            document.getElementById("guideStatusHeader").textContent = "No PDF";
+                            const guideStatusElement = document.querySelector(`[data-guide-id='${window.currentGuideId}'] .guide-status`);
+                            if (guideStatusElement) {
+                                guideStatusElement.textContent = "No PDF";
+                            }
+                            
+                            // Clear the PDF viewer
+                            const container = document.getElementById("studyGuideContainer");
+                            container.innerHTML = `
+                                <p class="text-center text-muted">No PDF available for this study guide. Click Create PDF to generate one.</p>`;
+                        } else {
+                            throw new Error(data.message || "Failed to delete PDF");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting PDF:", error);
+                        alert("Failed to delete PDF: " + error.message);
+                    });
+                }
+            } else {
+                alert("Please select a study guide first.");
+            }
+        });
+
+        // Tab switching functionality for the large create modal
+        const tabButtons = document.querySelectorAll(".modal-footer .tab-btn");
+        tabButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const tab = this.getAttribute("data-tab");
+                
+                // Update tab button states
+                tabButtons.forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+                
+                // Show/hide appropriate content
+                if (tab === "manual") {
+                    document.getElementById("manualTab").classList.remove("hidden");
+                    document.getElementById("aiTab").classList.add("hidden");
+                } else if (tab === "ai") {
+                    document.getElementById("aiTab").classList.remove("hidden");
+                    document.getElementById("manualTab").classList.add("hidden");
+                }
+            });
+        });
+
+        // AI Tab Functionality
+        function toggleAIMenu(selectedMenu) {
+            const elements = window.studyGuideElements;
+            if (selectedMenu === "text") {
+                elements.aiTextInputMenu.classList.remove("hidden");
+                elements.fileUploadMenu.classList.add("hidden");
+                elements.aiTextInputBtn.classList.add("active");
+                elements.aiFileUploadBtn.classList.remove("active");
+            } else {
+                elements.aiTextInputMenu.classList.add("hidden");
+                elements.fileUploadMenu.classList.remove("hidden");
+                elements.aiTextInputBtn.classList.remove("active");
+                elements.aiFileUploadBtn.classList.add("active");
+            }
+        }
+
+        // AI Button Event Listeners
+        window.studyGuideElements.aiTextInputBtn.addEventListener("click", () => toggleAIMenu("text"));
+        window.studyGuideElements.aiFileUploadBtn.addEventListener("click", () => toggleAIMenu("file"));
+
+        // Handle File Upload Display
+        window.studyGuideElements.fileInput.addEventListener("change", function(event) {
+            const files = Array.from(event.target.files);
+
+            if (files.length === 0) {
+                window.studyGuideElements.fileListContainer.innerHTML = '<p class="file-placeholder">No files uploaded.</p>';
+                window.uploadedFiles = [];
+                return;
+            }
+
+            if (files.length > 3) {
+                alert("You can upload a maximum of 3 files.");
+                const dt = new DataTransfer();
+                files.slice(0, 3).forEach(file => dt.items.add(file));
+                event.target.files = dt.files;
+                window.uploadedFiles = dt.files;
+            } else {
+                window.uploadedFiles = files;
+            }
+
+            // Update the file list display
+            window.studyGuideElements.fileListContainer.innerHTML = window.uploadedFiles.map((file, index) => `
+                <div class="uploaded-file">
+                    <span>${file.name}</span>
+                    <button class="remove-file-btn" data-index="${index}">&times;</button>
+                </div>
+            `).join('');
+
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-file-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    window.uploadedFiles.splice(index, 1);
+                    const dt = new DataTransfer();
+                    window.uploadedFiles.forEach(file => dt.items.add(file));
+                    window.studyGuideElements.fileInput.files = dt.files;
+                    window.studyGuideElements.fileListContainer.innerHTML = window.uploadedFiles.map((file, index) => `
+                        <div class="uploaded-file">
+                            <span>${file.name}</span>
+                            <button class="remove-file-btn" data-index="${index}">&times;</button>
+                        </div>
+                    `).join('');
+                });
+            });
+        });
+
+        // Close button event listener
+        window.studyGuideElements.closeLargeStudyGuideCreateModalBtn.addEventListener("click", closeLargeCreateModal);
+
+        // Preview functionality
+        const studyGuideContent = document.getElementById('studyGuideContent');
+        const aiTextBox = document.getElementById('aiTextBox');
+        const studyGuidePreview = document.getElementById('studyGuidePreview');
+
+        function updatePreview(content) {
+            if (!content.trim()) {
+                studyGuidePreview.innerHTML = '<p class="preview-placeholder">Your content will appear here as you type...</p>';
+                return;
+            }
+
+            // Convert the content to HTML, preserving line breaks and formatting
+            const formattedContent = content
+                .split('\n')
+                .map(line => {
+                    // Check if line is a heading (starts with #)
+                    if (line.startsWith('#')) {
+                        const level = line.match(/^#+/)[0].length;
+                        const text = line.replace(/^#+\s*/, '');
+                        return `<h${level}>${text}</h${level}>`;
+                    }
+                    // Check if line is a bullet point
+                    if (line.trim().startsWith('•') || line.trim().startsWith('-') || line.trim().startsWith('*')) {
+                        return `<li>${line.trim().substring(1).trim()}</li>`;
+                    }
+                    // Regular paragraph
+                    return line ? `<p>${line}</p>` : '<br>';
+                })
+                .join('');
+
+            studyGuidePreview.innerHTML = formattedContent;
+        }
+
+        // Update preview when typing in manual mode
+        studyGuideContent.addEventListener('input', function() {
+            updatePreview(this.value);
+        });
+
+        // Update preview when typing in AI mode
+        aiTextBox.addEventListener('input', function() {
+            updatePreview(this.value);
+        });
+
+        // Handle file upload preview
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updatePreview(e.target.result);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Update the confirmStudyGuideBtn click handler to include the current content
+        // Client-side JavaScript Fix
+        document.getElementById('confirmStudyGuideBtn').addEventListener('click', async function() {
+            const button = this;
+            const elements = {
+                manualTab: document.getElementById('manualTab'),
+                aiTextInputMenu: document.getElementById('aiTextInputMenu'),
+                fileUploadMenu: document.getElementById('fileUploadMenu'),
+                studyGuideContent: document.getElementById('studyGuideContent'),
+                aiTextBox: document.getElementById('aiTextBox'),
+                fileInput: document.getElementById('fileInput')
+            };
+
+            const isManualMode = !elements.manualTab.classList.contains('hidden');
+            const isAITextMode = !elements.aiTextInputMenu.classList.contains('hidden');
+            const isFileUploadMode = !elements.fileUploadMenu.classList.contains('hidden');
+
+            // Ensure a study guide is currently selected
+            if (!window.currentGuideId) {
+                alert("Please select a study guide first.");
+                return;
+            }
+
+            // Show loading state
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            try {
+                let apiUrl = isManualMode ? `/study-guides/${window.currentGuideId}` : `/study-guides/ai/${window.currentGuideId}`;
+                let response;
+
+                if (isManualMode) {
+                    const content = elements.studyGuideContent.value.trim();
+                    if (!content) {
+                        alert('Please enter content for your study guide.');
+                        throw new Error('Empty content');
+                    }
+                    
+                    response = await fetch(apiUrl, {
+                        method: "PUT",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ content: content })
+                    });
+                } else if (isAITextMode) {
+                    const content = elements.aiTextBox.value.trim();
+                    if (!content) {
+                        alert('Please enter text for the AI to process.');
+                        throw new Error('Empty AI text');
+                    }
+                    
+                    response = await fetch(apiUrl, {
+                        method: "PUT",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ content: content })
+                    });
+                } else if (isFileUploadMode) {
+                    if (!window.uploadedFiles || window.uploadedFiles.length === 0) {
+                        alert('Please upload a file for the AI to process.');
+                        throw new Error('No file uploaded');
+                    }
+                    
+                    // Process each uploaded file
+                    for (const file of window.uploadedFiles) {
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        
+                        response = await fetch(apiUrl, {
+                            method: "PUT",
+                            body: formData
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`Failed to process file: ${file.name}`);
+                        }
+                    }
+                }
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to update study guide');
+                }
+
+                const data = await response.json();
+                
+                // Handle successful response
+                window.closeLargeCreateModal();
+
+                // Update the PDF viewer with the new PDF
+                if (window.currentGuideId) {
+                    const container = document.getElementById("studyGuideContainer");
+                    container.innerHTML = `
+                        <div class="pdf-viewer">
+                            <embed src="/study-guides/${window.currentGuideId}/pdf" type="application/pdf" width="100%" height="600px">
+                        </div>`;
+
+                    // Update the status in both columns
+                    document.getElementById("guideStatusHeader").textContent = "PDF Available";
+                    const guideStatusElement = document.querySelector(`[data-guide-id='${window.currentGuideId}'] .guide-status`);
+                    if (guideStatusElement) {
+                        guideStatusElement.textContent = "PDF Available";
+                    }
+                }
+                        
+            } catch (error) {
+                console.error("Error processing study guide:", error);
+                alert(error.message || "An error occurred while processing your request.");
+            } finally {
+                // Reset button state
+                button.disabled = false;
+                button.innerHTML = 'Create';
+            }
+        });
+
+        function resetButton() {
+            const button = document.getElementById('confirmStudyGuideBtn');
+            button.disabled = false;
+            button.innerHTML = 'Create';
+            button.style.opacity = '1';
+        }
+
+        // Helper functions for response handling
+        function handleStudyGuideResponse(response) {
+            return response.json().then(data => {
+                if (data.message === "Study guide created!") {
+                    resetButton();
+                    closeLargeCreateModal();
+                    // Update the current guide's content with the new PDF
+                    if (window.currentGuideId) {
+                        // Update the PDF viewer in the right column
+                        const container = document.getElementById("studyGuideContainer");
+                        container.innerHTML = `
+                            <div class="pdf-viewer">
+                                <embed src="/study-guides/${data.guide_id}/pdf" type="application/pdf" width="100%" height="600px">
+                            </div>`;
+                        
+                        // Update the status in both columns
+                        document.getElementById("guideStatusHeader").textContent = "PDF Available";
+                        
+                        // Update the status in the left column
+                        const guideStatusElement = document.querySelector(`[data-guide-id='${window.currentGuideId}'] .guide-status`);
+                        if (guideStatusElement) {
+                            guideStatusElement.textContent = "PDF Available";
+                        }
+                    }
+                } else {
+                    throw new Error(data.message || "Failed to create study guide");
+                }
+            });
+        }
+
+        function handleError(error) {
+            console.error("Error creating study guide:", error);
+            alert("Failed to create study guide: " + error.message);
+        }
+
+        // Add these functions after the toggleMenu function
+        window.openRenameModal = function(guideId, currentName) {
+            window.currentRenameGuideId = guideId;
+            const elements = window.studyGuideElements;
+            
+            // Set the current name in the input field
+            elements.renameStudyGuideName.value = currentName;
+            elements.renameCharCount.textContent = `${currentName.length} / 30`;
+            elements.renameGuideBtn.disabled = false;
+            
+            // Show the modal
+            elements.renameModal.style.display = "flex";
+        };
+
+        // Rename button click handler
+        window.studyGuideElements.renameGuideBtn.addEventListener("click", function() {
+            const newName = window.studyGuideElements.renameStudyGuideName.value.trim();
+            if (newName && window.currentRenameGuideId) {
+                fetch(`/study-guides/${window.currentRenameGuideId}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title: newName })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message === "Study guide updated!") {
+                        // Update the name in the list
+                        const guideElement = document.querySelector(`[data-guide-id='${window.currentRenameGuideId}'] .guide-name`);
+                        if (guideElement) {
+                            guideElement.textContent = newName;
+                        }
+                        // Update the header if this guide is currently selected
+                        if (window.currentGuideId === window.currentRenameGuideId) {
+                            document.getElementById("guideNameHeader").textContent = newName;
+                        }
+                        closeRenameModal();
+                    } else {
+                        throw new Error(data.message || "Failed to rename study guide");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error renaming study guide:", error);
+                    alert("Failed to rename study guide: " + error.message);
+                });
+            }
+        });
+
+        window.openDeleteModal = function(guideId) {
+            window.currentDeleteGuideId = guideId;
+            window.studyGuideElements.deleteGuideModal.style.display = "flex";
+        };
+
+        window.deleteStudyGuide = function() {
+            if (window.currentDeleteGuideId) {
+                fetch(`/study-guides/${window.currentDeleteGuideId}`, {
+                    method: "DELETE"
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message === "Study guide deleted!") {
+                        // Remove the guide from the list
+                        const guideElement = document.querySelector(`[data-guide-id='${window.currentDeleteGuideId}']`);
+                        if (guideElement) {
+                            guideElement.remove();
+                        }
+                        // Clear the right column if this guide was selected
+                        if (window.currentGuideId === window.currentDeleteGuideId) {
+                            document.getElementById("studyGuideHeader").classList.add("hidden");
+                            document.getElementById("studyGuideContainer").innerHTML = 
+                                '<p class="text-center text-muted">Select a study guide to view its content.</p>';
+                            window.currentGuideId = null;
+                        }
+                        closeDeleteModal();
+                        
+                        // Check if there are no more guides
+                        const guidesList = document.getElementById("studyGuidesList");
+                        if (!guidesList.querySelector(".study-guide-item")) {
+                            guidesList.innerHTML = '<p class="text-center text-muted">No study guides available. Create one!</p>';
+                        }
+                    } else {
+                        throw new Error(data.message || "Failed to delete study guide");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error deleting study guide:", error);
+                    alert("Failed to delete study guide: " + error.message);
+                    closeDeleteModal();
+                });
+            }
+        };
+
+        // Close action menus when clicking outside
+        document.addEventListener("click", function(event) {
+            if (!event.target.closest('.menu-btn') && !event.target.closest('.action-menu')) {
+                document.querySelectorAll(".action-menu.show").forEach(menu => {
+                    menu.classList.remove("show");
+                });
+            }
+        });
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard - StudyMate{% endblock %}
+
+{% block body_class %}dashboard-page{% endblock %} 
+
+{% block content %}
+<div class="container text-center">
+    <h1 class="mt-4">Welcome to Your Dashboard, {{ user.username }}!</h1>
+    <p class="lead mb-5">Here you can manage your flashcards and study guides.</p>
+
+    <div class="row justify-content-center mt-4">
+        <!-- Flashcards Button -->
+        <div class="col-md-5">
+            <a href="/flashcards" class="dashboard-btn">
+                <i class="fas fa-sticky-note fa-3x"></i>
+                <h3 class="mt-3">Manage Flashcards</h3>
+                <p>Create, Update, and View Flashcard Sets</p>
+            </a>
+        </div>
+
+        <!-- Study Guides Button -->
+        <div class="col-md-5">
+            <a href="/study-guides" class="dashboard-btn">
+                <i class="fas fa-book fa-3x"></i>
+                <h3 class="mt-3">Manage Study Guides</h3>
+                <p>Create, Update, and View Study Guides</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

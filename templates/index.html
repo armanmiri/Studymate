@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center custom-jumbotron">
+  <h1 class="display-4">
+    <span id="highlightText">StudyMate</span>
+  </h1>
+  <p class="lead" id="typingText"></p>
+  <hr class="my-4">
+  <p>Get started by signing up or logging in.</p>
+  <a class="btn btn-signup btn-lg" href="{{ url_for('signup') }}" role="button">Sign Up</a>
+  <a class="btn btn-login btn-lg" href="{{ url_for('login') }}" role="button">Login</a>
+</div>
+
+<script>
+  // When the page loads, start the animations
+  window.addEventListener("load", function() {
+    // Highlight "StudyMate" after 1 second
+    const highlightText = document.getElementById("highlightText");
+    setTimeout(() => {
+      highlightText.style.transition = "color 0.5s ease";
+      highlightText.style.color = "#3A7BD5"; // Blue color for emphasis
+    }, 750);
+
+    // Typing animation for the subheading text
+    const text = "Manage your study materials, create flashcards, and more.";
+    const typingText = document.getElementById("typingText");
+    let index = 0;
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        typingText.textContent += text[index];
+        index++;
+        if(index === text.length) {
+          clearInterval(interval);
+        }
+      }, 50); // Adjust speed (50ms per character)
+    }, 1000); // Start typing after 1.5 seconds
+  });
+</script>
+{% endblock %}
