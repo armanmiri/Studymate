@@ -45,6 +45,18 @@
 
 ## 📦 Installation
 
+Use Python 3.11 or newer. Install runtime dependencies with
+`python -m pip install -r requirements.txt`. Set `GEMINI_API_KEY` to enable
+AI generation and set a persistent random `SECRET_KEY` to keep login tokens
+valid after restarts. The app uses a temporary process-local key when
+`SECRET_KEY` is unset and logs a warning.
+
+For development, install `requirements-dev.txt` and run `python -m ruff check .`
+and `python -m ruff format --check .`. Follow PEP 8, use four spaces, keep
+lines at or below 100 characters, annotate public signatures, and document
+public classes and functions with Google-style docstrings. Apply length and
+complexity thresholds to new and changed code as existing files are edited.
+
 1. Clone the repository:
 
    ```bash
