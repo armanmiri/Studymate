@@ -93,6 +93,7 @@ def token_required(f: F) -> F:
 
     @wraps(f)
     def decorated(*args: Any, **kwargs: Any) -> ResponseReturnValue:
+        """Authorize the request before calling the protected view."""
         token = request.cookies.get("token")
 
         if not token:
